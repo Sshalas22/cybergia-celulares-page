@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CYBERGIA – Reparación de Celulares</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f7fa;color:#1a1a2e}
+  .hero{background:linear-gradient(135deg,#1a237e 0%,#1565c0 60%,#0288d1 100%);color:#fff;padding:60px 20px 48px;text-align:center}
+  .hero-badge{display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);border-radius:20px;font-size:13px;padding:5px 16px;margin-bottom:18px;letter-spacing:.5px}
+  .hero h1{font-size:clamp(28px,5vw,44px);font-weight:700;line-height:1.2;margin-bottom:12px}
+  .hero h1 span{color:#80d8ff}
+  .hero p{font-size:17px;opacity:.9;max-width:520px;margin:0 auto 28px}
+  .cta-main{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1565c0;font-size:19px;font-weight:700;padding:16px 34px;border-radius:50px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.18);transition:transform .15s,box-shadow .15s}
+  .cta-main:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.22)}
+  .urgency{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;font-size:13px;opacity:.85}
+  .dot{width:8px;height:8px;background:#69f0ae;border-radius:50%;display:inline-block;animation:blink 1.4s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+  .services{padding:48px 20px;max-width:900px;margin:0 auto}
+  .services h2{text-align:center;font-size:22px;font-weight:700;margin-bottom:8px;color:#1a237e}
+  .services .sub{text-align:center;color:#555;font-size:15px;margin-bottom:32px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+  .card{background:#fff;border-radius:14px;padding:22px 18px;text-align:center;border:1.5px solid #e3e8f0;transition:border-color .2s,transform .2s}
+  .card:hover{border-color:#1565c0;transform:translateY(-3px)}
+  .card-icon{font-size:32px;margin-bottom:10px}
+  .card h3{font-size:15px;font-weight:700;color:#1a237e;margin-bottom:5px}
+  .card p{font-size:13px;color:#666;line-height:1.5}
+  .highlights{background:#1a237e;color:#fff;padding:40px 20px}
+  .highlights-inner{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+  .hl{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+  .hl-icon{width:52px;height:52px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+  .hl h4{font-size:15px;font-weight:700}
+  .hl p{font-size:13px;opacity:.8}
+  .badge-free{display:inline-flex;align-items:center;gap:6px;background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;border-radius:8px;font-size:13px;font-weight:600;padding:6px 14px;margin-top:8px}
+  .reviews-section{padding:48px 20px;max-width:900px;margin:0 auto}
+  .reviews-section h2{text-align:center;font-size:22px;font-weight:700;color:#1a237e;margin-bottom:4px}
+  .reviews-header{text-align:center;margin-bottom:28px}
+  .overall-score{display:flex;align-items:center;justify-content:center;gap:12px;margin:12px 0 4px}
+  .score-num{font-size:42px;font-weight:700;color:#1a237e}
+  .stars-row{color:#ffc107;font-size:20px;letter-spacing:2px}
+  .total-reviews{font-size:13px;color:#777}
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .review-card{background:#fff;border:1px solid #e3e8f0;border-radius:12px;padding:16px}
+  .rc-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .rc-avatar{width:36px;height:36px;border-radius:50%;background:#1565c0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+  .rc-name{font-size:14px;font-weight:700;color:#1a237e}
+  .rc-date{font-size:11px;color:#999}
+  .rc-stars{color:#ffc107;font-size:13px;margin-bottom:6px}
+  .rc-text{font-size:13px;color:#444;line-height:1.5}
+  .reviews-loading{text-align:center;padding:30px;color:#888;font-size:14px}
+  .reviews-error{text-align:center;padding:20px;color:#c62828;font-size:13px;background:#fff3e0;border-radius:8px}
+  .gmb-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#fff;border:1.5px solid #1565c0;color:#1565c0;font-size:14px;font-weight:600;padding:10px 22px;border-radius:50px;text-decoration:none}
+  .map-section{padding:48px 20px;background:#fff;text-align:center}
+  .map-section h2{font-size:22px;font-weight:700;color:#1a237e;margin-bottom:6px}
+  .map-section p{color:#555;font-size:14px;margin-bottom:20px}
+  .map-wrap{max-width:800px;margin:0 auto;border-radius:16px;overflow:hidden;border:1.5px solid #e3e8f0;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+  .map-wrap iframe{display:block;width:100%;height:380px;border:0}
+  .directions-btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:#1565c0;color:#fff;font-size:15px;font-weight:600;padding:12px 26px;border-radius:50px;text-decoration:none}
+  .cta-bottom{background:linear-gradient(135deg,#0288d1,#1565c0);color:#fff;padding:50px 20px;text-align:center}
+  .cta-bottom h2{font-size:clamp(22px,4vw,32px);font-weight:700;margin-bottom:10px}
+  .cta-bottom p{font-size:16px;opacity:.9;margin-bottom:28px}
+  .cta-secondary{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#1565c0;font-size:19px;font-weight:700;padding:16px 34px;border-radius:50px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+  footer{text-align:center;padding:18px;font-size:12px;color:#999;background:#f0f2f7}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-badge">Servicio técnico profesional · CYBERGIA</div>
+  <h1>¿Tu celular tiene <span>pantalla rota</span><br>o no carga?</h1>
+  <p>Lo reparamos hoy mismo. Diagnóstico gratis, garantía incluida y <strong>limpieza sin costo adicional</strong>.</p>
+  <a class="cta-main" href="tel:+522291595827">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Llámanos hoy: (229) 159 5827
+  </a>
+  <div class="urgency"><span class="dot"></span> Técnicos disponibles en este momento</div>
+</section>
+
+<section class="services">
+  <h2>¿Qué reparamos?</h2>
+  <p class="sub">Trabajamos con todas las marcas y modelos</p>
+  <div class="grid">
+    <div class="card"><div class="card-icon">📱</div><h3>Pantalla rota</h3><p>Cambio de pantalla original. Colores y tacto como nuevo.</p></div>
+    <div class="card"><div class="card-icon">🔋</div><h3>Batería</h3><p>Batería que no carga o se agota rápido. Solución en el día.</p></div>
+    <div class="card"><div class="card-icon">⚡</div><h3>Centro de carga</h3><p>Celular que no carga con ningún cable. Reparación express.</p></div>
+    <div class="card"><div class="card-icon">🔧</div><h3>Reparación general</h3><p>Diagnóstico completo para cualquier falla técnica.</p></div>
+  </div>
+</section>
+
+<section class="highlights">
+  <div class="highlights-inner">
+    <div class="hl"><div class="hl-icon">✓</div><h4>Garantía por escrito</h4><p>Todas las reparaciones tienen garantía oficial.</p></div>
+    <div class="hl"><div class="hl-icon">🧹</div><h4>Limpieza incluida</h4><p>Sin costo adicional en cada reparación.</p><span class="badge-free">✓ GRATIS</span></div>
+    <div class="hl"><div class="hl-icon">⚡</div><h4>Reparación rápida</h4><p>La mayoría de reparaciones en el mismo día.</p></div>
+  </div>
+</section>
+
+<section class="reviews-section">
+  <h2>Reseñas de Google</h2>
+  <div class="reviews-header" id="reviews-header">
+    <div class="reviews-loading">Cargando reseñas...</div>
+  </div>
+  <div id="reviews-grid" class="reviews-grid"></div>
+  <div style="text-align:center">
+    <a class="gmb-btn" href="https://share.google/fmual7sfRYZBLFUvv" target="_blank">Ver todas las reseñas en Google</a>
+  </div>
+</section>
+
+<section class="map-section">
+  <h2>¿Dónde estamos?</h2>
+  <p>Visítanos en CYBERGIA — Reparación de Impresoras, Computadoras y Celulares</p>
+  <div class="map-wrap">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4696.174772692032!2d-96.1313509!3d19.1638538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c3411f2f4a978b%3A0xee93f50914b22bf2!2sCYBERGIA%20-%20Reparaci%C3%B3n%20de%20Impresoras%2C%20Computadoras%20y%20Celulares!5e1!3m2!1sen!2smx!4v1774472837750!5m2!1sen!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <a class="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination_place_id=0x85c3411f2f4a978b:0xee93f50914b22bf2" target="_blank">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+    Cómo llegar
+  </a>
+</section>
+
+<section class="cta-bottom">
+  <h2>¿Tu celular tiene algún problema?</h2>
+  <p>Llámanos ahora y recibe atención inmediata. Diagnóstico completamente gratis.</p>
+  <a class="cta-secondary" href="tel:+522291595827">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Llámanos hoy: (229) 159 5827
+  </a>
+</section>
+
+<footer>© 2025 · CYBERGIA – Reparación de Celulares, Computadoras e Impresoras · Todos los derechos reservados</footer>
+
+<script>
+const API_KEY  = 'AIzaSyApoubvbCIqAvhkY4DEiHso6H3NWFQmM24';
+const PLACE_ID = '0x85c3411f2f4a978b:0xee93f50914b22bf2';
+
+async function loadReviews() {
+  const header = document.getElementById('reviews-header');
+  const grid   = document.getElementById('reviews-grid');
+  try {
+    const res  = await fetch(
+      `https://places.googleapis.com/v1/places/${PLACE_ID}?fields=rating,userRatingCount,reviews&languageCode=es&key=${API_KEY}`,
+      { headers: { 'X-Goog-FieldMask': 'rating,userRatingCount,reviews' } }
+    );
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const { rating, userRatingCount, reviews = [] } = data;
+    const st = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+    const av = n => n.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+    header.innerHTML = `
+      <div class="overall-score">
+        <span class="score-num">${rating?.toFixed(1) || '—'}</span>
+        <div>
+          <div class="stars-row">${st(Math.round(rating || 0))}</div>
+          <div class="total-reviews">${userRatingCount || 0} reseñas en Google</div>
+        </div>
+      </div>`;
+    grid.innerHTML = reviews.filter(r => r.rating >= 4).slice(0, 6).map(r => `
+      <div class="review-card">
+        <div class="rc-top">
+          <div class="rc-avatar">${av(r.authorAttribution?.displayName || '?')}</div>
+          <div>
+            <div class="rc-name">${r.authorAttribution?.displayName || 'Cliente'}</div>
+            <div class="rc-date">${r.relativePublishTimeDescription || ''}</div>
+          </div>
+        </div>
+        <div class="rc-stars">${st(r.rating)}</div>
+        <div class="rc-text">${r.text?.text || ''}</div>
+      </div>`).join('');
+  } catch(e) {
+    header.innerHTML = `<div class="reviews-error">No se pudieron cargar las reseñas. <a href="https://share.google/fmual7sfRYZBLFUvv" target="_blank">Ver en Google</a></div>`;
+  }
+}
+loadReviews();
+</script>
+</body>
+</html>
