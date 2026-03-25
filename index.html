@@ -132,45 +132,45 @@
 <footer>© 2025 · CYBERGIA – Reparación de Celulares, Computadoras e Impresoras · Todos los derechos reservados</footer>
 
 <script>
-const API_KEY  = 'AIzaSyApoubvbCIqAvhkY4DEiHso6H3NWFQmM24';
-const PLACE_ID = '0x85c3411f2f4a978b:0xee93f50914b22bf2';
+const reviews = [
+  { name: 'Artemio Gutiérrez Gómez', date: 'Hace 4 semanas', text: 'Experiencia y buena actitud, satisfacción por el servicio. Proporcionan asesoría sobre la óptima configuración de las computadoras.' },
+  { name: 'Luis Mora Talavera',       date: 'Hace 7 meses',   text: 'Gracias por el apoyo, los recomiendo 100%. Saludo desde Caracas, Venezuela.' },
+  { name: 'victor alarcon',           date: 'Enero 2024',     text: 'Servicio profesional, expedito, a precio razonable.' },
+  { name: 'JL Cebrian',              date: 'Feb 2023',       text: 'Llevé a reparar mi laptop y de un día para otro me hablaron que ya estaba lista. Me gustó el servicio, muy rápidos, lo recomiendo.' },
+  { name: 'Cinthya Vargas Rojas',    date: 'Dic 2022',       text: 'Servicio eficiente y de calidad, además excelente atención al cliente, los recomiendo ampliamente.' },
+  { name: 'Ana Huerta',              date: 'Nov 2022',       text: 'Muy buen trato. Me explicaron muy bien lo que tenía mi equipo resolviendo todas mis dudas y cumplieron los tiempos de entrega prometidos. Para mí son de mucha confianza.' },
+  { name: 'Héctor Quesnel',          date: 'Oct 2022',       text: 'Excelente servicio, atendido por el propietario, teniendo mayor seguridad y responsabilidad por el trabajo deseado.' },
+  { name: 'Gustavo Olivares',        date: 'Oct 2022',       text: 'Excelente atención, servicio y precios razonables. He llevado a reparar diferentes equipos y siempre he quedado satisfecho.' },
+  { name: 'Carolina Ramos',          date: 'Oct 2022',       text: 'Excelente atención, solución a mi problema de cómputo con eficiencia, honradez y en la medida de lo posible rápido.' },
+];
 
-async function loadReviews() {
+function loadReviews() {
   const header = document.getElementById('reviews-header');
   const grid   = document.getElementById('reviews-grid');
-  try {
-    const res  = await fetch(
-      `https://places.googleapis.com/v1/places/${PLACE_ID}?fields=rating,userRatingCount,reviews&languageCode=es&key=${API_KEY}`,
-      { headers: { 'X-Goog-FieldMask': 'rating,userRatingCount,reviews' } }
-    );
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-    const { rating, userRatingCount, reviews = [] } = data;
-    const st = n => '★'.repeat(n) + '☆'.repeat(5 - n);
-    const av = n => n.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
-    header.innerHTML = `
-      <div class="overall-score">
-        <span class="score-num">${rating?.toFixed(1) || '—'}</span>
+  const st = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+  const av = n => n.trim().split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+
+  header.innerHTML = `
+    <div class="overall-score">
+      <span class="score-num">5.0</span>
+      <div>
+        <div class="stars-row">★★★★★</div>
+        <div class="total-reviews">+25 reseñas en Google</div>
+      </div>
+    </div>`;
+
+  grid.innerHTML = reviews.map(r => `
+    <div class="review-card">
+      <div class="rc-top">
+        <div class="rc-avatar">${av(r.name)}</div>
         <div>
-          <div class="stars-row">${st(Math.round(rating || 0))}</div>
-          <div class="total-reviews">${userRatingCount || 0} reseñas en Google</div>
+          <div class="rc-name">${r.name}</div>
+          <div class="rc-date">${r.date}</div>
         </div>
-      </div>`;
-    grid.innerHTML = reviews.filter(r => r.rating >= 4).slice(0, 6).map(r => `
-      <div class="review-card">
-        <div class="rc-top">
-          <div class="rc-avatar">${av(r.authorAttribution?.displayName || '?')}</div>
-          <div>
-            <div class="rc-name">${r.authorAttribution?.displayName || 'Cliente'}</div>
-            <div class="rc-date">${r.relativePublishTimeDescription || ''}</div>
-          </div>
-        </div>
-        <div class="rc-stars">${st(r.rating)}</div>
-        <div class="rc-text">${r.text?.text || ''}</div>
-      </div>`).join('');
-  } catch(e) {
-    header.innerHTML = `<div class="reviews-error">No se pudieron cargar las reseñas. <a href="https://share.google/fmual7sfRYZBLFUvv" target="_blank">Ver en Google</a></div>`;
-  }
+      </div>
+      <div class="rc-stars">★★★★★</div>
+      <div class="rc-text">${r.text}</div>
+    </div>`).join('');
 }
 loadReviews();
 </script>
